@@ -72,16 +72,17 @@ peer.on('call', (call) => {
     const imgPadraoPlayer = document.getElementById('imgPadraoPlayer');
     imgPadraoPlayer.style.display = 'none'
     player.style.display = 'block'
-    try {
-      player.srcObject = remoteStream;
-    } catch (error) {
-      alertaDom("Erro ao add stream no player. ", error);
-    }
-    try {
+    let streamPendente = remoteStream;
+
+    const btnAssistir = document.getElementById('btnAssistir');
+    btnAssistir.addEventListener('click', () => {
+      player.srcObject = streamPendente;
+      player.muted = false;
       player.play();
-    } catch (error) {
-      alertaDom("Erro ao dar play. ", error);
-    }
+      btnAssistir.style.display = 'none';
+      console.log("ss")
+    });
+
   });
 });
 
